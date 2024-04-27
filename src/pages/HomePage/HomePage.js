@@ -5,31 +5,31 @@ import Welcome from './Welcome/Welcome';
 import Search from './Search/Search';
 import PopularJobs from './PopularJobs/PopularJobs';
 import NearbyJobs from './NearbyJobs/NearbyJobs';
+import { ImageBackground } from 'react-native';
 
 const HomePage = () => {
 
   return (
-    <SafeAreaView>
-      <View>
+      <SafeAreaView>
         <View>
-          <Welcome />
+          <View>
+            <Welcome />
+          </View>
+
+          <View>
+            <Search />
+          </View>
+
+          <View>
+            <PopularJobs />
+          </View>
+
+          <View>
+            <NearbyJobs />
+          </View>
+
         </View>
-
-        <View>
-          <Search />
-        </View>
-
-      <View>
-        <PopularJobs />
-      </View>
-
-      <View>
-        <NearbyJobs />
-      </View>
-
-      </View>
-    </SafeAreaView>
-
+      </SafeAreaView>
   );
 }
 

@@ -30,7 +30,7 @@ const PopularJobs = () => {
 
       <View>
         {loading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color="orange" />
         ) : job === null ? (
           <Text>Loading...</Text>
         ) : (

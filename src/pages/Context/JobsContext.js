@@ -51,7 +51,6 @@ const JobContextProvider = ({ children }) => {
             if(data.status === 'success'){
                 setSearchedJob(data.dataOfJobs)
                 setLoading(false);
-                console.log('backendden gelen veri : ', searchedJob);
             }else{
                 console.log('cannot get the searched values from backend')
             }
@@ -67,7 +66,8 @@ const values = {
     setCompany,
     searchInput,
     setSearchInput,
-    searchJobs
+    searchJobs,
+    searchedJob
 }
 
 return (

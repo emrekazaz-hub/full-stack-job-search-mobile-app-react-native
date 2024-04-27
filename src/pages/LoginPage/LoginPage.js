@@ -1,5 +1,5 @@
 // LoginPage.js
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, ImageBackground } from 'react-native';
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../Context/UserContext';
 import { Form, Formik } from 'formik';
@@ -33,36 +33,40 @@ const LoginPage = ({ navigation }) => {
     }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <ImageBackground source={require('../Images/bg-orng.jpg')} style={{ height: '100%', width: '100%' }}>
 
-            <Text>LoginPage</Text>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
-            <View style={styles.form}>
+                <Text style={styles.header}>Job Search App</Text>
 
-                <View>
-                    <Text>Name</Text>
-                    <TextInput style={styles.input} placeholder='Jhon Doe..' onChangeText={(text) => setUserInput({ ...userInput, name: text })} />
+                <View style={styles.form}>
+
+                    <View>
+                        <Text style={styles.labelText}>Name</Text>
+                        <TextInput style={styles.input} placeholder='  Jhon Doe..' onChangeText={(text) => setUserInput({ ...userInput, name: text })} />
+                    </View>
+
+                    <View>
+                        <Text style={styles.labelText}>Email</Text>
+                        <TextInput style={styles.input} placeholder='  your@email.com' keyboardType='email-address' onChangeText={(text) => setUserInput({ ...userInput, email: text })} />
+                    </View>
+
+                    <View>
+                        <Text style={styles.labelText}>Password</Text>
+                        <TextInput style={styles.input} placeholder='  Password' onChangeText={(text) => setUserInput({ ...userInput, password: text })} />
+                    </View>
+
                 </View>
 
-                <View>
-                    <Text>Email</Text>
-                    <TextInput style={styles.input} placeholder='your@email.com' keyboardType='email-address' onChangeText={(text) => setUserInput({ ...userInput, email: text })} />
+                <View style={{paddingTop: 20}}>
+                    <TouchableOpacity style={styles.button} onPress={handleButton}>
+                        <Text style={styles.buttonText}>Login</Text>
+                    </TouchableOpacity>
                 </View>
 
-                <View>
-                    <Text>Password</Text>
-                    <TextInput style={styles.input} placeholder='Password' onChangeText={(text) => setUserInput({ ...userInput, password: text })} />
-                </View>
 
             </View>
-
-            <TouchableOpacity style={styles.button} onPress={handleButton}>
-                <Text>Login</Text>
-            </TouchableOpacity>
-
-            <Card2 />
-
-        </View>
+        </ImageBackground>
     )
 }
 
@@ -73,17 +77,30 @@ const styles = StyleSheet.create({
         width: '90%',
         justifyContent: 'center',
         paddingHorizontal: 25,
+        gap: 15
+    },
+    header: {
+        color: 'white',
+        fontSize: 25
+    },
+    labelText: {
+        color: 'white'
     },
     input: {
         justifyContent: "center",
         borderColor: 'black',
         backgroundColor: 'white',
+        borderRadius: 10
     },
     button: {
         backgroundColor: 'orange',
-        height: 20,
-        width: 50,
+        height: 40,
+        width: 100,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 18
     }
 })
