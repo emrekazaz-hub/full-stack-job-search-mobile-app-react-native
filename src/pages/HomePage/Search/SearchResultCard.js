@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { Image } from 'react-native';
 import { JobContext } from '../../Context/JobsContext';
 import defaultLogo from '../PopularJobs/amazon6707.jpg';
+import Styles from '../../Styles/Styles.js';
 
 const SearchResultCard = ({ item }) => {
 

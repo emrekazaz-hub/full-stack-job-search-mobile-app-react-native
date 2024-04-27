@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const PopularJobsCard = ({ item }) => {
 
-    const { setCompany } = useContext(JobContext);
+    const { setCompany, handleRecentJob } = useContext(JobContext);
     const navigation = useNavigation();
 
     const checkImageURL = (url) => {
@@ -23,6 +23,7 @@ const PopularJobsCard = ({ item }) => {
 const openCompany = () => {
     setCompany(item)
     navigation.navigate('Company')
+    handleRecentJob(item.job_id)
 }
 
     return (

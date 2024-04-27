@@ -4,7 +4,7 @@ import DrawerNavigator from '../Navigations/DrawerNavigator/DrawerNavigator';
 import Welcome from './Welcome/Welcome';
 import Search from './Search/Search';
 import PopularJobs from './PopularJobs/PopularJobs';
-import NearbyJobs from './NearbyJobs/NearbyJobs';
+import RecetJobs from './RecentJobs/RecetJobs';
 import { ImageBackground } from 'react-native';
 
 const HomePage = () => {
@@ -25,7 +25,7 @@ const HomePage = () => {
           </View>
 
           <View>
-            <NearbyJobs />
+            <RecetJobs />
           </View>
 
         </View>

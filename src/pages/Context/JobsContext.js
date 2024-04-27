@@ -18,6 +18,8 @@ const JobContextProvider = ({ children }) => {
     const [url, setUrl] = useState();
     const [company, setCompany] = useState('');
     const [searchInput, setSearchInput] = useState('');
+    const [recentJob, setRecentJob] = useState([]);
+    const [popularJob, setPopularJob] = useState([]);
 
     const fetchJobs = () => {
         setLoading(true);
@@ -46,35 +48,40 @@ const JobContextProvider = ({ children }) => {
                 searchInput: searchInput
             })
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status === 'success'){
-                setSearchedJob(data.dataOfJobs)
-                setLoading(false);
-            }else{
-                console.log('cannot get the searched values from backend')
-            }
-        })
-}
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    setSearchedJob(data.dataOfJobs)
+                    setLoading(false);
+                } else {
+                    console.log('cannot get the searched values from backend')
+                }
+            })
+    }
 
-const values = {
-    handleNavigateStack,
-    job,
-    fetchJobs,
-    loading,
-    company,
-    setCompany,
-    searchInput,
-    setSearchInput,
-    searchJobs,
-    searchedJob
-}
+    const handleRecentJob = (companyid) => {
+        setRecentJob(companyid)
+    }
 
-return (
-    <JobContext.Provider value={values}>
-        {children}
-    </JobContext.Provider>
-);
+    const values = {
+        handleNavigateStack,
+        job,
+        fetchJobs,
+        loading,
+        company,
+        setCompany,
+        searchInput,
+        setSearchInput,
+        searchJobs,
+        searchedJob,
+        handleRecentJob
+    }
+
+    return (
+        <JobContext.Provider value={values}>
+            {children}
+        </JobContext.Provider>
+    );
 }
 
 export { JobContext, JobContextProvider };
