@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import DrawerNavigator from '../Navigations/DrawerNavigator/DrawerNavigator';
 import Welcome from './Welcome/Welcome';
 import Search from './Search/Search';
@@ -10,7 +10,8 @@ import { ImageBackground } from 'react-native';
 const HomePage = () => {
 
   return (
-      <SafeAreaView>
+    <SafeAreaView>
+      <ScrollView>
         <View>
           <View>
             <Welcome />
@@ -29,7 +30,8 @@ const HomePage = () => {
           </View>
 
         </View>
-      </SafeAreaView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

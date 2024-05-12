@@ -1,5 +1,5 @@
 // LoginPage.js
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, ImageBackground } from 'react-native';
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../Context/UserContext';
 import { Formik } from 'formik';
@@ -19,9 +19,11 @@ const SignUpPage = ({ navigation }) => {
     }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center' }}>
+        <ImageBackground source={require('../Images/bg-orng.jpg')} style={{ height: '100%', width: '100%', alignItems: 'center'}}>
 
-            <Text>LoginPage</Text>
+            <View>
+                <Image source={require('../Images/login2.png')} style={{ height: 150, width: 200}}/>
+            </View>
 
             <View style={styles.form}>
 
@@ -59,38 +61,43 @@ const SignUpPage = ({ navigation }) => {
                                     />
                                 </View>
 
+                                <View style={{ flexDirection: 'row', gap: 10 }}>
+                                    <Text>Do you have an account?</Text>
+                                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                                        <Text>Login</Text>
+                                    </TouchableOpacity>
+                                </View>
 
-                                <TouchableOpacity
-                                    onPress={() => handleSubmit(console.log(values))}
-                                >
-                                    <Text>Submit</Text>
-                                </TouchableOpacity>
+                                <View>
+                                    <TouchableOpacity onPress={handleLogin}>
+                                        <Text>Login</Text>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity onPress={handleGuest}>
+                                        <Text>Continue as guest</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+
                             </>
                     }
+
                 </Formik>
 
             </View>
 
-            <TouchableOpacity onPress={handleLogin}>
-                <Text>Login</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={handleGuest}>
-                <Text>Continue as guest</Text>
-            </TouchableOpacity>
-
-        </View>
+        </ImageBackground>
     )
 }
 
 export default SignUpPage;
 
 const styles = StyleSheet.create({
-    form: {
-        flex: 0.5,
+    form: {     
         width: '90%',
         justifyContent: 'center',
-        paddingHorizontal: 25
+        paddingHorizontal: 25,
+        backgroundColor: 'gray'
     },
     input: {
         justifyContent: "center",

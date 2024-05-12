@@ -7,7 +7,7 @@ import Styles from '../../Styles/Styles.js';
 
 const SearchResultCard = ({ item }) => {
 
-    const { company, setCompany, handleNavigateStack } = useContext(JobContext);
+    const { company, setCompany, handleNavigateStack, handleRecentJob } = useContext(JobContext);
 
     const checkImageURL = (url) => {
         if (url === null) {
@@ -21,6 +21,7 @@ const SearchResultCard = ({ item }) => {
     const openCompany = () => {
         setCompany(item)
         handleNavigateStack('Company')
+        handleRecentJob();
     }
 
     return (

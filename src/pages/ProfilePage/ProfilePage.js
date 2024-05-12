@@ -1,19 +1,31 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useContext, useEffect } from 'react';
 import TabNavigator from '../Navigations/TabNavigator/TabNavigator';
 import { UserContext } from '../Context/UserContext';
+import { JobContext } from '../Context/JobsContext';
 
 const ProfilePage = () => {
 
-  const { isLogged, signedUser } = useContext(UserContext);
+  const { isLogged, foundedUser } = useContext(UserContext);
+  const { getRecentJobs, recentJob } = useContext(JobContext);
+
 
   useEffect(() => {
-    console.log('giris yapan kullanici : ', signedUser)
-  },[])
+    getRecentJobs();
+  }, [])
 
   return (
     <View style={styles.center}>
-      <Text>{isLogged ? `Hosgeldin ${JSON.stringify(signedUser)}` : 'Lutfen Giris Yapiniz'}</Text>
+      <Text>{isLogged ? `Hosgeldin ${foundedUser.name}` : 'Lutfen Giris Yapiniz'}</Text>
+      <Text>kullanicinin company bilgileri :</Text>
+      <View>
+        {recentJob.map((job, index) => (
+          <TouchableOpacity key={index}>
+            <Text>{job.job_name}</Text>
+            <Text>{job.job_title}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   )
 }

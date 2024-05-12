@@ -1,4 +1,4 @@
-import { View, Text, FlatList, ScrollView } from 'react-native'
+import { View, Text, FlatList, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useContext } from 'react'
 import RecetJobsCard from './RecetJobsCard'
 import { JobContext } from '../../Context/JobsContext'
@@ -8,33 +8,48 @@ const RecetJobs = () => {
 
   const { job } = useContext(JobContext);
 
-  /*
-    
-    For Recent Jobs and Company Key:
-    Every time the user clicks on a card (visits a company), we will set a state along with the click.
-    This state will store the ID of the clicked company and save it to the database. 
-    Thus, we will be able to show the last visited companies in the 'Recent Jobs' section.
-  
-    For popular jobs:
-    It will display random companies in a way that suits the user with the help of a function
-    that takes the company IDs stored by the user in the database and calculates
-    the average areas of the companies belonging to these IDs.
-  
-    */
+  const handleClick = () => {
+    console.log('tiklanan butondan cikan job verileri', job)
+  }
 
   return (
-    <ScrollView>
-      <Text>RecetJobs (We will calculate from backend later)</Text>
+    <ScrollView >
+      <View style={styles.titleRecent}>
+        <Text style={{ fontSize: 20, fontFamily: 'serif', paddingBottom: 10 }}>Recent Jobs</Text>
+        <TouchableOpacity onPress={handleClick}>
+          <Text>Show all</Text>
+        </TouchableOpacity>
+      </View>
 
-      <FlatList
-        //data={recentJob}
-        data={job}
-        keyExtractor={item => item.job_id}
-        //renderItem={({item}) => <RecetJobsCard item={item}/>}
-        renderItem={({ item }) => <SearchResultCard item={item} />}
-      />
+      <View style={styles.viewRecentJobs}>
+        <FlatList
+          // data={job}
+          data={[1, 2, 3, 4, 5, 6]}
+          keyExtractor={item => item.job_id}
+          //renderItem={({item}) => <RecetJobsCard item={item}/>}
+          renderItem={({ item }) => <SearchResultCard item={item} />}
+          contentContainerStyle={styles.listRecent}
+        />
+      </View>
     </ScrollView>
   )
 }
 
 export default RecetJobs;
+
+const styles = StyleSheet.create({
+  viewRecentJobs: {
+    alignItems: 'center',
+    paddingBottom: 20
+  },
+  listRecent: {
+    gap: 20
+  },
+  titleRecent: {
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    paddingTop: 20,
+    paddingRight: 20,
+    paddingLeft: 20
+  }
+})

@@ -56,9 +56,16 @@ const LoginPage = ({ navigation }) => {
                         <TextInput style={styles.input} placeholder='  Password' onChangeText={(text) => setUserInput({ ...userInput, password: text })} />
                     </View>
 
+                    <View style={{flexDirection: 'row', gap: 10}}>
+                        <Text style={{ color: 'white' }}>Don't have an account?</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                            <Text style={{color: 'white'}}>Sign Up</Text>
+                        </TouchableOpacity>
+                    </View>
+
                 </View>
 
-                <View style={{paddingTop: 20}}>
+                <View style={{ paddingTop: 20 }}>
                     <TouchableOpacity style={styles.button} onPress={handleButton}>
                         <Text style={styles.buttonText}>Login</Text>
                     </TouchableOpacity>

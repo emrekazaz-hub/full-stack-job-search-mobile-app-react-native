@@ -20,8 +20,8 @@ const SearchResult = () => {
           :
           <View>
             <FlatList
-              data={searchedJob}
-              //data={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]}
+              data={[1,2,3,4,5,6,7,8,9]}
+             // data={searchedJob} WE NEED TO SAVE API USAGE :)
               renderItem={({ item }) => <SearchResultCard item={item} />}
               keyExtractor={item => item.job_id}
               contentContainerStyle={{ rowGap: 16, alignItems: 'center', paddingBottom: 60, paddingTop: 15 }}

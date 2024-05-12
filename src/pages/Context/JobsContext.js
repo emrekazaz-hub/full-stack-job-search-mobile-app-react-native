@@ -1,11 +1,14 @@
 import React, { useEffect, useContext, createContext, useState } from "react";
 import axios from 'axios';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'
+import { UserContext } from "./UserContext";
 
 const JobContext = createContext();
 
 const JobContextProvider = ({ children }) => {
+
+    const { foundedUser } = useContext(UserContext);
 
     const navigation = useNavigation();
     const handleNavigateStack = (url) => {
@@ -18,18 +21,18 @@ const JobContextProvider = ({ children }) => {
     const [url, setUrl] = useState();
     const [company, setCompany] = useState('');
     const [searchInput, setSearchInput] = useState('');
+
     const [recentJob, setRecentJob] = useState([]);
     const [popularJob, setPopularJob] = useState([]);
 
     const fetchJobs = () => {
         setLoading(true);
-        fetch('http://192.168.0.18:3000/job/search/nearby')
+        fetch('http://192.168.0.20:3000/job/search/nearby')
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
                     setJob(data.dataOfJobs)
                     setLoading(false);
-                    console.log('popular job verisi : ', job);
                 } else {
                     console.log('err')
                 }
@@ -38,7 +41,7 @@ const JobContextProvider = ({ children }) => {
 
     const searchJobs = () => {
         setLoading(true)
-        fetch('http://192.168.0.18:3000/job/search', {
+        fetch('http://192.168.0.20:3000/job/search', {
             method: 'POST',
             headers:
             {
@@ -60,8 +63,34 @@ const JobContextProvider = ({ children }) => {
     }
 
     const handleRecentJob = (companyid) => {
-        setRecentJob(companyid)
+        const userId = foundedUser.id;
+        fetch(`http://192.168.0.20:3000/job/recent/${userId}`, {
+            method: 'POST',
+            headers:
+            {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                companyId: companyid
+            })
+        })
+        .then(res => res.json())
+        .catch(err => console.log('front veriyi alamadi', err))
     }
+
+    const getRecentJobs = () => {
+        const userId = foundedUser.id;
+        fetch(`http://192.168.0.20:3000/job/recent/byuser/${userId}`)
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'success'){
+                setRecentJob(data.company);
+            }else{
+                console.log('hata')
+            }
+        })
+    }
+
 
     const values = {
         handleNavigateStack,
@@ -74,7 +103,9 @@ const JobContextProvider = ({ children }) => {
         setSearchInput,
         searchJobs,
         searchedJob,
-        handleRecentJob
+        handleRecentJob,
+        getRecentJobs,
+        recentJob
     }
 
     return (
