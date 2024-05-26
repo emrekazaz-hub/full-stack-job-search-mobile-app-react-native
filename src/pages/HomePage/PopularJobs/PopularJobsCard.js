@@ -23,7 +23,7 @@ const PopularJobsCard = ({ item }) => {
 const openCompany = () => {
     setCompany(item)
     navigation.navigate('Company')
-    handleRecentJob(item.job_id)
+    handleRecentJob(item.job_id, item.employer_name, item.job_title, item.job_city, item.job_country);
 }
 
     return (

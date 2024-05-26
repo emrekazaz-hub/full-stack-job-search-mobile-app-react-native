@@ -6,7 +6,7 @@ import { JobContext } from '../Context/JobsContext';
 
 const ProfilePage = () => {
 
-  const { isLogged, foundedUser } = useContext(UserContext);
+  const { isLogged, foundedUser, signedUser } = useContext(UserContext);
   const { getRecentJobs, recentJob } = useContext(JobContext);
 
 
@@ -16,14 +16,14 @@ const ProfilePage = () => {
 
   return (
     <View style={styles.center}>
-      <Text>{isLogged ? `Hosgeldin ${foundedUser.name}` : 'Lutfen Giris Yapiniz'}</Text>
+      <Text>{isLogged ? `Hosgeldin ${signedUser[0].name}` : 'Lutfen Giris Yapiniz'}</Text>
       <Text>kullanicinin company bilgileri :</Text>
       <View>
         {recentJob.map((job, index) => (
-          <TouchableOpacity key={index}>
+          <View key={index}>
             <Text>{job.job_name}</Text>
             <Text>{job.job_title}</Text>
-          </TouchableOpacity>
+          </View>
         ))}
       </View>
     </View>

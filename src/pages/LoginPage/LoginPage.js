@@ -21,12 +21,13 @@ const LoginPage = ({ navigation }) => {
     ])
 
     const handleButton = () => {
-        if (!userInput.name || !userInput.email || !userInput.password) {
+        if (!userInput.email || !userInput.password) {
             alert('alanlar bos birakilmamali')
             return
         }
 
-        handleSignin(userInput.name, userInput.email, userInput.password)
+        handleSignin(userInput.email, userInput.password)
+        
         if (isLogged) {
             navigation.navigate('HomeStack');
         }
@@ -40,11 +41,6 @@ const LoginPage = ({ navigation }) => {
                 <Text style={styles.header}>Job Search App</Text>
 
                 <View style={styles.form}>
-
-                    <View>
-                        <Text style={styles.labelText}>Name</Text>
-                        <TextInput style={styles.input} placeholder='  Jhon Doe..' onChangeText={(text) => setUserInput({ ...userInput, name: text })} />
-                    </View>
 
                     <View>
                         <Text style={styles.labelText}>Email</Text>

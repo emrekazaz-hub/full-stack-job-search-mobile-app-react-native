@@ -1,10 +1,8 @@
-import { object, string, ref } from 'yup';
+import { object, string } from 'yup';
 
 const LoginValidations = object({
-  name: string().required(),
   email: string().email().required(),
-  password: string().min(5).required(),
-  checkPassword: string().oneOf([ref("password")]).required(),
+  password: string().required(),
 });
 
 export default LoginValidations;

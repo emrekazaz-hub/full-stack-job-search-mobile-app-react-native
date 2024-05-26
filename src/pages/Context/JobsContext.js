@@ -8,7 +8,7 @@ const JobContext = createContext();
 
 const JobContextProvider = ({ children }) => {
 
-    const { foundedUser } = useContext(UserContext);
+    const { foundedUser, signedUser } = useContext(UserContext);
 
     const navigation = useNavigation();
     const handleNavigateStack = (url) => {
@@ -17,6 +17,7 @@ const JobContextProvider = ({ children }) => {
 
     const [job, setJob] = useState([]);
     const [searchedJob, setSearchedJob] = useState([]);
+    const [allRecentJobs, setAllRecentJobs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [url, setUrl] = useState();
     const [company, setCompany] = useState('');
@@ -26,18 +27,29 @@ const JobContextProvider = ({ children }) => {
     const [popularJob, setPopularJob] = useState([]);
 
     const fetchJobs = () => {
+        const userId = signedUser[0].id;
         setLoading(true);
-        fetch('http://192.168.0.20:3000/job/search/nearby')
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    setJob(data.dataOfJobs)
-                    setLoading(false);
-                } else {
-                    console.log('err')
-                }
-            })
-    }
+        fetch(`http://192.168.0.20:3000/job/search/nearby/${userId}`, {
+            method: 'POST',
+            headers:
+            {
+                'Content-Type': 'application/json'
+            },
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.status === 'success') {
+              setJob(data.dataOfJobs);
+            } else {
+              console.log('Error:', data.message);
+            }
+            setLoading(false);
+          })
+          .catch(error => {
+            console.error('Fetch error:', error);
+            setLoading(false);
+          });
+      }      
 
     const searchJobs = () => {
         setLoading(true)
@@ -62,8 +74,8 @@ const JobContextProvider = ({ children }) => {
             })
     }
 
-    const handleRecentJob = (companyid) => {
-        const userId = foundedUser.id;
+    const handleRecentJob = (job_id,employer_name,job_title, job_city, job_country) => {
+        const userId = signedUser[0].id;
         fetch(`http://192.168.0.20:3000/job/recent/${userId}`, {
             method: 'POST',
             headers:
@@ -71,7 +83,11 @@ const JobContextProvider = ({ children }) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                companyId: companyid
+                companyId: job_id,
+                employer_name: employer_name,
+                job_title: job_title,
+                job_city: job_city,
+                job_country: job_country
             })
         })
         .then(res => res.json())
@@ -79,12 +95,25 @@ const JobContextProvider = ({ children }) => {
     }
 
     const getRecentJobs = () => {
-        const userId = foundedUser.id;
-        fetch(`http://192.168.0.20:3000/job/recent/byuser/${userId}`)
+        const userId = signedUser[0].id;
+        fetch(`http://192.168.0.20:3000/job/recent/byuser/4/${userId}`)
         .then(res => res.json())
         .then(data => {
             if(data.status === 'success'){
                 setRecentJob(data.company);
+            }else{
+                console.log('hata')
+            }
+        })
+    }
+
+    const getAllRecentJobs = () => {
+        const userId = signedUser[0].id;
+        fetch(`http://192.168.0.20:3000/job/recent/byuser/${userId}`)
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'success'){
+                setAllRecentJobs(data.company);
             }else{
                 console.log('hata')
             }
@@ -105,7 +134,8 @@ const JobContextProvider = ({ children }) => {
         searchedJob,
         handleRecentJob,
         getRecentJobs,
-        recentJob
+        recentJob,
+        getAllRecentJobs,
     }
 
     return (

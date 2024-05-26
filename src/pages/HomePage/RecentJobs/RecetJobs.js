@@ -1,21 +1,25 @@
 import { View, Text, FlatList, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import RecetJobsCard from './RecetJobsCard'
 import { JobContext } from '../../Context/JobsContext'
 import SearchResultCard from '../Search/SearchResultCard'
 
 const RecetJobs = () => {
 
-  const { job } = useContext(JobContext);
+  const { recentJob, getRecentJobs } = useContext(JobContext);
 
   const handleClick = () => {
     console.log('tiklanan butondan cikan job verileri', job)
   }
 
+  useEffect(() => {
+    getRecentJobs()
+  }, [])
+
   return (
     <ScrollView >
       <View style={styles.titleRecent}>
-        <Text style={{ fontSize: 20, fontFamily: 'serif', paddingBottom: 10 }}>Recent Jobs</Text>
+        <Text style={{ fontSize: 20, fontFamily: 'serif', paddingBottom: 10 }}>Last Jobs You Looked At</Text>
         <TouchableOpacity onPress={handleClick}>
           <Text>Show all</Text>
         </TouchableOpacity>
@@ -23,10 +27,8 @@ const RecetJobs = () => {
 
       <View style={styles.viewRecentJobs}>
         <FlatList
-          // data={job}
-          data={[1, 2, 3, 4, 5, 6]}
+          data={recentJob}
           keyExtractor={item => item.job_id}
-          //renderItem={({item}) => <RecetJobsCard item={item}/>}
           renderItem={({ item }) => <SearchResultCard item={item} />}
           contentContainerStyle={styles.listRecent}
         />

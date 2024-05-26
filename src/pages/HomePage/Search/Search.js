@@ -8,7 +8,7 @@ const Search = () => {
   const { setSearchInput, searchJobs, handleNavigateStack } = useContext(JobContext);
 
   const handleSubmit = () => {
-    // searchJobs();
+    searchJobs();
     handleNavigateStack('SearchResult')
   }
 

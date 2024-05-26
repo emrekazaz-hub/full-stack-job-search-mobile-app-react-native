@@ -13,16 +13,17 @@ const PopularJobs = () => {
     console.log('tiklanan butondan cikan job verileri', job)
   }
 
-/*
+
+// just saving the api usage
   useEffect(() => {
     fetchJobs();
   },[])
-*/
+
 
   return (
     <View style={{ paddingLeft: 20 }}>
       <View style={styles.popularJobsHeader}>
-        <Text style={{ fontSize: 20, fontFamily: 'serif', paddingBottom: 10 }}>Popular Jobs</Text>
+        <Text style={{ fontSize: 20, fontFamily: 'serif', paddingBottom: 10 }}>Popular Jobs Near You</Text>
         <TouchableOpacity onPress={handleClick}>
           <Text>Show all</Text>
         </TouchableOpacity>
@@ -35,8 +36,8 @@ const PopularJobs = () => {
           <Text>Loading...</Text>
         ) : (
           <FlatList
-            //data={job}
-            data={[1,2,3,4,5,6]}
+            data={job}
+            //data={[1,2,3,4,5,6]}
             renderItem={({ item }) => <PopularJobsCard item={item} />}
             keyExtractor={(item) => item.job_id}
             contentContainerStyle={{ columnGap: 16 }}
